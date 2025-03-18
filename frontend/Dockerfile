@@ -5,7 +5,11 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Copy package.json and install dependencies
+<<<<<<< HEAD
 COPY package.json ./
+=======
+COPY package.json package-lock.json ./
+>>>>>>> 8e856e6 (initial commit)
 RUN npm install
 
 # Copy all files
@@ -20,4 +24,8 @@ CMD ["npm", "start"]
 # RUN npm install -g serve
 # CMD ["serve", "-s", "build", "-l", "3000"]
 
+<<<<<<< HEAD
 EXPOSE 3001
+=======
+EXPOSE 3000
+>>>>>>> 8e856e6 (initial commit)
