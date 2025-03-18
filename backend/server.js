@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const express = require("express");
 const mongoose = require("mongoose");
 const { v4: uuidv4 } = require("uuid");
@@ -9,12 +10,32 @@ const { TronWeb } = require("tronweb");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const cron = require("node-cron");
+=======
+const express = require('express');
+const mongoose = require('mongoose');
+// const TronWeb = require('tronweb').default;
+const { v4: uuidv4 } = require('uuid');
+const bcrypt = require('bcrypt');
+const dotenv = require('dotenv');
+const axios = require('axios');
+// import TronWeb from 'tronweb';
+// const TronWeb = require('tronweb');
+// import * as TronWeb from "tronweb";
+const cors = require("cors");
+
+
+const { TronWeb } = require('tronweb');
+>>>>>>> d0e94ba (initial commit)
 
 dotenv.config();
 const app = express();
 app.use(express.json());
+<<<<<<< HEAD
 app.use(cors({ origin: "http://localhost:3001" }));
 
+=======
+app.use(cors({ origin: "http://localhost:3001" })); // Allow frontend
+>>>>>>> d0e94ba (initial commit)
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -372,4 +393,38 @@ app.get("/wallet", authenticate, async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 app.listen(3000, () => console.log(`Server running on port 3000, using TRON testnet`));
+=======
+// Validate Transaction using TronScan Testnet API
+app.get('/verify_transaction/:tx_id', async (req, res) => {
+    const { tx_id } = req.params;
+    const transaction = await Transaction.findOne({ id: tx_id });
+    if (!transaction) return res.status(404).json({ error: 'Transaction not found' });
+    
+    if (!transaction.txHash) return res.status(400).json({ error: 'Transaction has not been executed yet' });
+    
+    try {
+        const response = await axios.get(`https://api.shasta.trongrid.io/v1/transactions/${transaction.txHash}`);
+        const txStatus = response.data.data.length > 0 ? response.data.data[0].ret[0].contractRet : 'NOT_FOUND';
+        
+        res.json({ status: txStatus, transaction });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch transaction details', details: error.message });
+    }
+});
+
+
+// Fetch All Transactions
+app.get('/transactions', async (req, res) => {
+    try {
+        const transactions = await Transaction.find();
+        res.json(transactions);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch transactions', details: error.message });
+    }
+});
+
+
+app.listen(3000, () => console.log('Server running on port 3000, using TRON testnet'));
+>>>>>>> d0e94ba (initial commit)

@@ -4,6 +4,7 @@ services:
     image: mongo:latest
     container_name: mongodb
     ports:
+<<<<<<< HEAD
       - "27017:27017"
     restart: always # Ensures the database restarts if it crashes
 
@@ -30,6 +31,8 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
+=======
+>>>>>>> d0e94ba (initial commit)
       - "3000:3000"
     depends_on:
       - mongo
@@ -52,6 +55,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
+<<<<<<< HEAD
       - "3001:3001"
     depends_on:
       - backend
@@ -65,3 +69,18 @@ services:
             - node_modules/
         - action: rebuild
           path: ./frontend/package.json
+=======
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3001:3001"
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:
+>>>>>>> d0e94ba (initial commit)

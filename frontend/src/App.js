@@ -8,6 +8,17 @@ import "react-toastify/dist/ReactToastify.css";
 
 toast.dismiss();
 
+import { Card, CardContent } from "./components/ui/Card";
+import { Button } from "./components/ui/Button";
+import { Input } from "./components/ui/Input";
+
+
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+toast.dismiss(); // Optional: Clears existing toasts on reload
+
+
 export default function FlashWallet() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [wallet, setWallet] = useState({
@@ -22,8 +33,11 @@ export default function FlashWallet() {
   const [amountUsdt, setAmountUsdt] = useState("");
   const [receiverUsdt, setReceiverUsdt] = useState("");
   const [amount, setAmount] = useState("");
+<<<<<<< HEAD
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+=======
+>>>>>>> d0e94ba (initial commit)
   
   useEffect(() => {
     if (token) {
@@ -31,6 +45,7 @@ export default function FlashWallet() {
       fetchTransactions();
     }
 
+<<<<<<< HEAD
     const interval = setInterval(() => {
       fetchWallet();
       fetchTransactions();
@@ -77,11 +92,34 @@ export default function FlashWallet() {
         { receiver, amount, currency: "TRX" },
         { headers: { Authorization: `Bearer ${token}` } }
       );
+=======
+  const generateWallet = async () => {
+    try {
+      const res = await axios.post("http://localhost:3000/generate_wallet", { currency: "USDT" });
+      setWallet(res.data);
+      toast.success("Wallet Generated Successfully");
+    } catch (error) {
+      toast.error("Error Generating Wallet");
+    }
+  };
+
+  const createTransaction = async () => {
+    try {
+      const res  = await axios.post("http://localhost:3000/create_flash_transaction", {
+        sender: wallet?.address,
+        receiver,
+        amount,
+        currency: "USDT"
+      });
+      console.log(res.data);
+      
+>>>>>>> d0e94ba (initial commit)
       fetchTransactions();
       toast.success("Transaction Created Successfully");
     } catch (error) {
       toast.error("Transaction Failed");
     }
+<<<<<<< HEAD
   };
 
   const createTransactionUsdt = async () => {
@@ -110,17 +148,24 @@ export default function FlashWallet() {
     } catch (error) {
       toast.error("Transaction Execution Failed");
     }
+=======
+>>>>>>> d0e94ba (initial commit)
   };
 
   const fetchTransactions = async () => {
     try {
+<<<<<<< HEAD
       const res = await axios.get("http://localhost:3000/transactions", {
         headers: { Authorization: `Bearer ${token}` },
       });
+=======
+      const res = await axios.get("http://localhost:3000/transactions");
+>>>>>>> d0e94ba (initial commit)
       setTransactions(res.data);
     } catch (error) {
       toast.error("Error Fetching Transactions");
     }
+<<<<<<< HEAD
   };
 
   const logout = async () => {
@@ -136,11 +181,14 @@ export default function FlashWallet() {
     await setWallet({ address: "", balance: { TRX: 0, USDT: 0 } });
     toast.success("Logged out successfully");
     window.location.reload();
+=======
+>>>>>>> d0e94ba (initial commit)
   };
 
   return (
     <div className="p-6 max-w-lg mx-auto bg-gray-100 rounded-xl shadow-md">
       <h1 className="text-3xl font-bold text-center">Flash Wallet</h1>
+<<<<<<< HEAD
       {token && (
         <>
 
@@ -207,6 +255,27 @@ export default function FlashWallet() {
           </div>
         </>
       )}
+=======
+      <Button onClick={generateWallet} className="mt-4 w-full bg-blue-600 text-white">Generate Wallet</Button>
+      {wallet && <p className="mt-2 text-center">Wallet: {wallet.address}</p>}
+      <Card className="mt-6 p-4">
+        <h2 className="text-xl font-bold">Send USDT</h2>
+        <Input placeholder="Receiver Address" className="mt-2" value={receiver} onChange={(e) => setReceiver(e.target.value)} />
+        <Input placeholder="Amount" className="mt-2" type="number" value={amount} onChange={(e) => setAmount(e.target.value)} />
+        <Button onClick={createTransaction} className="mt-4 w-full bg-green-600 text-white">Send</Button>
+      </Card>
+      <h2 className="mt-6 text-xl font-bold">Transaction History</h2>
+      <div className="mt-4">
+        {transactions.map((tx) => (
+          <Card key={tx.id} className="p-4 mb-2">
+            <CardContent>
+              <p><strong>{tx.sender}</strong> → <strong>{tx.receiver}</strong></p>
+              <p>{tx.amount} USDT | <span className={tx.status === "Valid" ? "text-green-500" : "text-red-500"}>{tx.status}</span></p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+>>>>>>> d0e94ba (initial commit)
     </div>
   );
 }

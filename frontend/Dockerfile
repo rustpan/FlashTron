@@ -25,7 +25,11 @@ CMD ["npm", "start"]
 # CMD ["serve", "-s", "build", "-l", "3000"]
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 EXPOSE 3001
 =======
 EXPOSE 3000
 >>>>>>> 8e856e6 (initial commit)
+=======
+EXPOSE 3001
+>>>>>>> d0e94ba (initial commit)
