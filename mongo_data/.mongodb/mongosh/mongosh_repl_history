@@ -1,3 +1,8 @@
+show collections
+db.transactions.drop()
+show collections
+use flash_tron
+show dbs
 db.transactions.find({status: "OnChain Pending"})
 db.transactions.find({status: 'OnChain Pending'})
 db.transactions.find({status: 'OnChain Pendin'})
