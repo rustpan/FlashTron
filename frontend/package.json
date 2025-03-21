@@ -13,12 +13,8 @@
     "react-dom": "^19.0.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^11.0.5",
-<<<<<<< HEAD
     "web-vitals": "4.2.4",
     "tronweb": "^6.0.2"
-=======
-    "web-vitals": "^2.1.4"
->>>>>>> d0e94ba (initial commit)
   },
   "scripts": {
     "start": "PORT=3001 react-scripts start",

@@ -1,20 +1,9 @@
-<<<<<<< HEAD
 services:
 
   mongo:
     image: mongo:latest
     container_name: mongodb
-=======
-version: "3.8"
-
-services:
-  backend:
-    build: 
-      context: ./backend
-      dockerfile: Dockerfile
->>>>>>> 1bce5a9 (commit backup before add sauthentication)
     ports:
-<<<<<<< HEAD
       - "27017:27017"
     restart: always # Ensures the database restarts if it crashes
 
@@ -41,8 +30,6 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-=======
->>>>>>> d0e94ba (initial commit)
       - "3000:3000"
     volumes:
       - ./backend:/app
@@ -52,7 +39,6 @@ services:
     environment:
       - MONGO_URI=mongodb://mongo:27017/flash_tron
     command: npm run dev # Enables hot reloading
-<<<<<<< HEAD
     develop:
       watch: # Track live changes during development
         - action: sync
@@ -68,14 +54,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-=======
-
-  mongo:
-    image: mongo
-    container_name: mongodb
->>>>>>> 1bce5a9 (commit backup before add sauthentication)
     ports:
-<<<<<<< HEAD
       - "3001:3001"
     depends_on:
       - backend
@@ -89,24 +68,3 @@ services:
             - node_modules/
         - action: rebuild
           path: ./frontend/package.json
-=======
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    ports:
-      - "3001:3001"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    depends_on:
-      - backend
-    command: npm start # Enables live updates
-
-volumes:
-  mongo_data:
->>>>>>> d0e94ba (initial commit)

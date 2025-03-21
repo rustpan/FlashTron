@@ -1,60 +1,26 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 1bce5a9 (commit backup before add sauthentication)
 const express = require("express");
 const mongoose = require("mongoose");
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 const axios = require("axios");
-<<<<<<< HEAD
 const cors = require("cors");
 const { TronWeb } = require("tronweb");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const cron = require("node-cron");
-=======
-const express = require('express');
-const mongoose = require('mongoose');
-// const TronWeb = require('tronweb').default;
-const { v4: uuidv4 } = require('uuid');
-const bcrypt = require('bcrypt');
-const dotenv = require('dotenv');
-const axios = require('axios');
-// import TronWeb from 'tronweb';
-// const TronWeb = require('tronweb');
-// import * as TronWeb from "tronweb";
-const cors = require("cors");
-
-
-const { TronWeb } = require('tronweb');
->>>>>>> d0e94ba (initial commit)
-=======
-const cors = require("cors");
-const { TronWeb } = require("tronweb");
->>>>>>> 1bce5a9 (commit backup before add sauthentication)
 
 dotenv.config();
 const app = express();
 app.use(express.json());
-<<<<<<< HEAD
 app.use(cors({ origin: "http://localhost:3001" }));
 
-=======
-app.use(cors({ origin: "http://localhost:3001" })); // Allow frontend
-<<<<<<< HEAD
->>>>>>> d0e94ba (initial commit)
-=======
-
->>>>>>> 1bce5a9 (commit backup before add sauthentication)
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-<<<<<<< HEAD
 const blacklistedTokens = new Set();
 
 const UserSchema = new mongoose.Schema({
@@ -70,12 +36,6 @@ const UserSchema = new mongoose.Schema({
     address: String,
     privateKey: String,
   },
-=======
-const WalletSchema = new mongoose.Schema({
-  currency: String,
-  address: String,
-  privateKey: String,
->>>>>>> 1bce5a9 (commit backup before add sauthentication)
 });
 
 const TransactionSchema = new mongoose.Schema({
@@ -92,7 +52,6 @@ const TransactionSchema = new mongoose.Schema({
   updated_at: { type: Date, default: Date.now },
 });
 
-<<<<<<< HEAD
 const User = mongoose.model("User", UserSchema);
 const Transaction = mongoose.model("Transaction", TransactionSchema);
 const USDT_CONTRACT = "TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs"; // Sasta Testnet USDT contract address
@@ -410,117 +369,7 @@ app.get("/wallet", authenticate, async (req, res) => {
     res.json({ address: user.wallet.address, balance: {TRX:Number(balance),USDT:Number(usdtBalance)} });
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch balance", details: error.message });
-=======
-const Wallet = mongoose.model("Wallet", WalletSchema);
-const Transaction = mongoose.model("Transaction", TransactionSchema);
-
-const tronWeb = new TronWeb({
-  fullHost: "https://api.shasta.trongrid.io",
-});
-
-// Generate Wallet
-app.post("/generate_wallet", async (req, res) => {
-  const { currency } = req.body;
-  if (currency !== "USDT") {
-    return res.status(400).json({ error: "Unsupported currency" });
-  }
-
-  const account = await tronWeb.createAccount();
-  const hashedKey = await bcrypt.hash(account.privateKey, 10);
-  const wallet = new Wallet({ currency, address: account.address.base58, privateKey: hashedKey });
-  await wallet.save();
-
-  res.json({ address: account.address.base58 });
-});
-
-// Create Flash Transaction
-app.post("/create_flash_transaction", async (req, res) => {
-  const { sender, receiver, amount, currency } = req.body;
-  const expiry = new Date(Date.now() + 20 * 24 * 60 * 60 * 1000);
-
-  const transaction = new Transaction({
-    id: uuidv4(),
-    sender,
-    receiver,
-    amount,
-    currency,
-    status: "Pending",
-    expiry,
-    txHash: null,
-    created_at: new Date(),
-    updated_at: new Date(),
-  });
-
-  await transaction.save();
-  res.json({ message: "Flash transaction created", transaction });
-});
-
-// Execute Transaction (Send USDT on TRON Testnet)
-app.post("/execute_transaction", async (req, res) => {
-  const { tx_id } = req.body;
-  const transaction = await Transaction.findOne({ id: tx_id });
-  if (!transaction) return res.status(404).json({ error: "Transaction not found" });
-  if (transaction.status !== "Valid") return res.status(400).json({ error: "Transaction is not valid" });
-
-  const senderWallet = await Wallet.findOne({ address: transaction.sender });
-  if (!senderWallet) return res.status(400).json({ error: "Sender wallet not found" });
-
-  const privateKey = await bcrypt.compare(process.env.SECRET_KEY, senderWallet.privateKey)
-    ? process.env.TRON_PRIVATE_KEY
-    : null;
-  if (!privateKey) return res.status(403).json({ error: "Invalid private key" });
-
-  try {
-    const tx = await tronWeb.trx.sendTransaction(transaction.receiver, transaction.amount * 1e6, privateKey);
-    transaction.txHash = tx.txid;
-    transaction.verification_link = `https://shasta.tronscan.org/#/transaction/${tx.txid}`;
-    transaction.status = "Completed";
-    transaction.updated_at = new Date();
-    await transaction.save();
-
-    res.json({ message: "Transaction executed", txHash: tx.txid });
-  } catch (error) {
-    res.status(500).json({ error: "Transaction failed", details: error.message });
->>>>>>> 1bce5a9 (commit backup before add sauthentication)
   }
 });
 
-<<<<<<< HEAD
 app.listen(3000, () => console.log(`Server running on port 3000, using TRON testnet`));
-=======
-// Validate Transaction using TronScan Testnet API
-app.get("/verify_transaction/:tx_id", async (req, res) => {
-  const { tx_id } = req.params;
-  const transaction = await Transaction.findOne({ id: tx_id });
-  if (!transaction) return res.status(404).json({ error: "Transaction not found" });
-
-  if (!transaction.txHash) return res.status(400).json({ error: "Transaction has not been executed yet" });
-
-  try {
-    const response = await axios.get(`https://api.shasta.trongrid.io/v1/transactions/${transaction.txHash}`);
-    const txStatus = response.data.data.length > 0 ? response.data.data[0].ret[0].contractRet : "NOT_FOUND";
-
-    res.json({ status: txStatus, transaction });
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch transaction details", details: error.message });
-  }
-});
-
-// Fetch All Transactions
-app.get("/transactions", async (req, res) => {
-  try {
-    const transactions = await Transaction.find();
-    res.json(transactions);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch transactions", details: error.message });
-  }
-});
-
-<<<<<<< HEAD
-
-app.listen(3000, () => console.log('Server running on port 3000, using TRON testnet'));
->>>>>>> d0e94ba (initial commit)
-=======
-// Start Server
-app.listen(3000, () => console.log(`Server running on port ${3000}, using TRON testnet`));
->>>>>>> 1bce5a9 (commit backup before add sauthentication)
