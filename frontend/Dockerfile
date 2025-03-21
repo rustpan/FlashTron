@@ -5,7 +5,15 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Copy package.json and install dependencies
+<<<<<<< HEAD
+<<<<<<< HEAD
 COPY package.json ./
+=======
+COPY package.json package-lock.json ./
+>>>>>>> 8e856e6 (initial commit)
+=======
+COPY package.json ./
+>>>>>>> 936aae7 (TRX Flash transaction)
 RUN npm install
 
 # Copy all files
@@ -20,4 +28,12 @@ CMD ["npm", "start"]
 # RUN npm install -g serve
 # CMD ["serve", "-s", "build", "-l", "3000"]
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 EXPOSE 3001
+=======
+EXPOSE 3000
+>>>>>>> 8e856e6 (initial commit)
+=======
+EXPOSE 3001
+>>>>>>> d0e94ba (initial commit)
