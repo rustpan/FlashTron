@@ -1,0 +1,9 @@
+db.transactions.find({status: "OnChain Pending"})
+db.transactions.find({status: 'OnChain Pending'})
+db.transactions.find({status: 'OnChain Pendin'})
+db.transactions.find({status: 'OnChain Pending'})
+db.transactions.find()
+show collections
+show schemas
+use flash_tron
+show dbs

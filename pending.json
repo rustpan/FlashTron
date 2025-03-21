@@ -1,0 +1,169 @@
+{
+  "contract_map": {
+    "TGqxVZkajMSsKQDLFVzVGvCymFYerJh72h": false,
+    "TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs": true,
+    "TNZFd3uL3vJdRc5YE6Tmzg3eVhAyHzjkXY": false
+  },
+  "contractRet": "SUCCESS",
+  "data": "",
+  "contractInfo": {
+    "TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs": {
+      "isToken": true,
+      "tag1": "",
+      "tag1Url": "https://tron.network/usdt",
+      "name": "Token",
+      "risk": false,
+      "publicTagDesc": "",
+      "vip": false,
+      "publicTag": ""
+    }
+  },
+  "contractType": 31,
+  "event_count": 1,
+  "project": "",
+  "toAddress": "TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs",
+  "confirmed": false,
+  "trc20TransferInfo": [
+    {
+      "icon_url": "https://static.tronscan.org/production/logo/usdtlogo.png",
+      "symbol": "USDT",
+      "level": "2",
+      "to_address": "TNZFd3uL3vJdRc5YE6Tmzg3eVhAyHzjkXY",
+      "contract_address": "TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs",
+      "type": "Transfer",
+      "decimals": 6,
+      "name": "Tether Token",
+      "vip": false,
+      "tokenType": "trc20",
+      "from_address": "TGqxVZkajMSsKQDLFVzVGvCymFYerJh72h",
+      "amount_str": "1000000",
+      "status": 0
+    }
+  ],
+  "transfersAllList": [
+    {
+      "icon_url": "https://static.tronscan.org/production/logo/usdtlogo.png",
+      "symbol": "USDT",
+      "level": "2",
+      "to_address": "TNZFd3uL3vJdRc5YE6Tmzg3eVhAyHzjkXY",
+      "contract_address": "TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs",
+      "type": "Transfer",
+      "decimals": 6,
+      "name": "Tether Token",
+      "vip": false,
+      "tokenType": "trc20",
+      "from_address": "TGqxVZkajMSsKQDLFVzVGvCymFYerJh72h",
+      "amount_str": "1000000",
+      "status": 0
+    }
+  ],
+  "block": 52879053,
+  "triggerContractType": 500,
+  "riskTransaction": false,
+  "timestamp": 1742426028000,
+  "info": {
+
+  },
+  "normalAddressInfo": {
+    "TGqxVZkajMSsKQDLFVzVGvCymFYerJh72h": {
+      "risk": false
+    },
+    "TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs": {
+      "risk": false
+    },
+    "TNZFd3uL3vJdRc5YE6Tmzg3eVhAyHzjkXY": {
+      "risk": false
+    }
+  },
+  "cost": {
+    "net_fee_cost": 1000,
+    "date_created": 1742426028,
+    "fee": 0,
+    "energy_fee_cost": 280,
+    "net_usage": 0,
+    "multi_sign_fee": 0,
+    "net_fee": 345000,
+    "energy_penalty_total": 0,
+    "energy_usage": 0,
+    "energy_fee": 5478900,
+    "energy_usage_total": 13045,
+    "memoFee": 0,
+    "origin_energy_usage": 0
+  },
+  "noteLevel": 1,
+  "addressTag": {
+
+  },
+  "revert": false,
+  "confirmations": 5,
+  "fee_limit": 150000000,
+  "tokenTransferInfo": {
+    "icon_url": "https://static.tronscan.org/production/logo/usdtlogo.png",
+    "symbol": "USDT",
+    "level": "2",
+    "to_address": "TNZFd3uL3vJdRc5YE6Tmzg3eVhAyHzjkXY",
+    "contract_address": "TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs",
+    "type": "Transfer",
+    "decimals": 6,
+    "name": "Tether Token",
+    "vip": false,
+    "tokenType": "trc20",
+    "from_address": "TGqxVZkajMSsKQDLFVzVGvCymFYerJh72h",
+    "amount_str": "1000000",
+    "status": 0
+  },
+  "contract_type": "trc20",
+  "trigger_info": {
+    "method": "transfer(address recipient,uint256 amount)",
+    "parameter": {
+      "amount": "1000000",
+      "recipient": "TNZFd3uL3vJdRc5YE6Tmzg3eVhAyHzjkXY"
+    },
+    "methodId": "a9059cbb",
+    "contract_address": "TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs",
+    "call_value": 0
+  },
+  "signature_addresses": [],
+  "ownerAddress": "TGqxVZkajMSsKQDLFVzVGvCymFYerJh72h",
+  "srConfirmList": [
+    {
+      "address": "TSPFGdtTLe2JYGe4iDQ5Nfmc6SFwABx7Ef",
+      "name": "http://sr-23.com",
+      "block": 52879053,
+      "url": "http://sr-23.com"
+    },
+    {
+      "address": "TUy8Q7t5JEn26NPTuo6duDEs5Jss51xD6v",
+      "name": "http://sr-13.com",
+      "block": 52879054,
+      "url": "http://sr-13.com"
+    },
+    {
+      "address": "TLHJ462phNTo8LmmBiFcHV2UpUhXYF75KF",
+      "name": "http://sr-9.com",
+      "block": 52879055,
+      "url": "http://sr-9.com"
+    },
+    {
+      "address": "TNrNmtaSgsLV4vGiYmv2J5Pcyzsx8XfT4M",
+      "name": "http://sr-8.com",
+      "block": 52879056,
+      "url": "http://sr-8.com"
+    },
+    {
+      "address": "TJf2aDMjthsPh64HGZ9qbjPCMvk1FwVRqB",
+      "name": "http://sr-7.com",
+      "block": 52879057,
+      "url": "http://sr-7.com"
+    }
+  ],
+  "hash": "90d267ff6ad406bec3d6f51a75835b2a52d049591411b694fb973a8e8c2fb31a",
+  "contractData": {
+    "data": "a9059cbb0000000000000000000000008a11d6f2064c64336272a7563f22f02dd69518b900000000000000000000000000000000000000000000000000000000000f4240",
+    "owner_address": "TGqxVZkajMSsKQDLFVzVGvCymFYerJh72h",
+    "contract_address": "TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs"
+  },
+  "internal_transactions": {
+
+  }
+}
