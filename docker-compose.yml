@@ -1,14 +1,36 @@
-
 services:
+
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    restart: always # Ensures the database restarts if it crashes
+
+  mongo-restore:
+    image: mongo:latest
+    container_name: mongorestore
+    volumes:
+      - ./mongo_backup:/data/backup
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        echo "Waiting for MongoDB to be ready..."
+        until mongosh --host mongo --eval "db.runCommand({ ping: 1 })"; do
+          sleep 2
+        done
+        echo "MongoDB is ready. Starting restore..."
+        mongorestore --host mongo --db flash_tron /data/backup/flash_tron
+    depends_on:
+      - mongo
+
+
   backend:
     build: 
       context: ./backend
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    # volumes:
-    #   - ./backend:/app
-    #   - /app/node_modules
     depends_on:
       - mongo
     environment:
@@ -24,14 +46,6 @@ services:
         - action: rebuild
           path: ./backend/package.json
 
-  mongo:
-    image: mongo
-    container_name: mongodb
-    ports:
-      - "27017:27017"
-    volumes:
-      - ./mongo_data:/data/db
-    restart: always # Ensures the database restarts if it crashes
 
   frontend:
     build:
@@ -39,9 +53,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3001:3001"
-    # volumes:
-    #   - ./frontend:/app
-    #   - /app/node_modules
     depends_on:
       - backend
     command: npm start # Enables live updates
@@ -54,7 +65,3 @@ services:
             - node_modules/
         - action: rebuild
           path: ./frontend/package.json
-
-volumes:
-  mongo_data:
-    driver: local
